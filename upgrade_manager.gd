@@ -198,6 +198,9 @@ func run_tractor(crop: String):
 		if GameManager.roll_crit():
 			amount *= GameManager.crit_multiplier
 			crop_manager.show_crit_text()
+			# screen shake on crit
+			if main:
+				main.trigger_crit_shake()
 		
 		match crop:
 			"Wheat":

@@ -423,6 +423,8 @@ func _on_harvest_pressed():
 		amount *= GameManager.crit_multiplier
 		show_crit_text()
 		crit_sound.play()
+		# screen shake on crit
+		trigger_crit_shake()
 
 	GameManager.wheat += amount
 	crop_manager.spawn_wheatText(amount)
@@ -453,6 +455,8 @@ func _on_harvest_corn_button_pressed():
 		amount *= GameManager.crit_multiplier
 		show_crit_text()
 		crit_sound.play()
+		# screen shake on crit
+		trigger_crit_shake()
 
 	GameManager.corn += amount
 	crop_manager.spawn_cornText(amount)
@@ -487,6 +491,8 @@ func _on_harvest_carrot_button_pressed():
 		amount *= GameManager.crit_multiplier
 		show_crit_text()
 		crit_sound.play()
+		# screen shake on crit
+		trigger_crit_shake()
 
 	GameManager.carrot += amount
 	crop_manager.spawn_carrotText(amount)
@@ -707,6 +713,21 @@ func animate_xp():
 		GameManager.xp,
 		0.25
 	).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+
+func trigger_crit_shake():
+	# Randomize intensity and duration for variety
+	var intensity = randf_range(3.0, 6.0)
+	var duration = randf_range(0.12, 0.45)
+	var cam = null
+	if has_node("Player/Camera2D"):
+		cam = $Player/Camera2D
+	elif has_node("../Player/Camera2D"):
+		cam = get_node("../Player/Camera2D")
+	if cam and cam.has_method("screen_shake"):
+		cam.screen_shake(intensity, duration)
+	elif cam and cam.has_method("screen_shake") == false:
+		# fallback: call without params if method expects none
+		cam.screen_shake()
 
 func _on_wheat_tractor_unlock_pressed() -> void:
 	if GameManager.gold >= 500:

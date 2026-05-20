@@ -182,6 +182,9 @@ func harvest_wheat():
 		amount *= GameManager.crit_multiplier
 		show_crit_text()
 		crit_sound.play()
+		# screen shake on crit (use main which references node_2d)
+		if main:
+			main.trigger_crit_shake()
 	
 	GameManager.wheat += amount
 	spawn_wheatText(amount)
@@ -208,6 +211,9 @@ func harvest_corn():
 		amount *= GameManager.crit_multiplier
 		show_crit_text()
 		crit_sound.play()
+		# screen shake on crit (use main which references node_2d)
+		if main:
+			main.trigger_crit_shake()
 	
 	GameManager.corn += amount
 	spawn_cornText(amount)
@@ -234,6 +240,9 @@ func harvest_carrot():
 		amount *= GameManager.crit_multiplier
 		show_crit_text()
 		crit_sound.play()
+		# screen shake on crit (use main which references node_2d)
+		if main:
+			main.trigger_crit_shake()
 	
 	GameManager.carrot += amount
 	spawn_carrotText(amount)
